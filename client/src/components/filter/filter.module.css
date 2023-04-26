@@ -1,0 +1,52 @@
+.contenedortodos {
+  display: flex;
+  flex-direction: row;
+}
+
+.selectContainer {
+  position: relative;
+  margin-top: 10px;
+  margin-right: 8px;
+  margin-left: 8px;
+  width: 200px;
+}
+
+.selectContainer select {
+  font-family: "Press Start 2P", cursive;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0.5em;
+  border: none;
+  border-bottom: 1px solid #000;
+  background-color: #c4c835;
+  cursor: pointer;
+}
+
+.selectContainer select option {
+  background-color: #dccc26;
+  color: #000000;
+  cursor: pointer;
+}
+
+.selectContainer select option::hover {
+  background-color: #00ff00;
+  color: #000;
+}
+
+.selectContainer::after {
+  content: "\25BC";
+  position: absolute;
+  top: 58%;
+  right: 0.15em;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.selectContainer select:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+span {
+  margin-bottom: 11px;
+}

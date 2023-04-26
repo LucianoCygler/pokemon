@@ -1,0 +1,56 @@
+/* landing.module.css */
+
+.contenedor {
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  background-image: url(https://images4.alphacoders.com/115/1159692.jpg);
+
+  margin: 0;
+  position: fixed; /* Fijar la posición para que cubra toda la ventana del navegador */
+  top: 0; /* Posición superior a 0 para que cubra toda la ventana del navegador */
+  left: 0; /* Posición izquierda a 0 para que cubra toda la ventana del navegador */
+  right: 0; /* Posición derecha a 0 para que cubra toda la ventana del navegador */
+  bottom: 0; /* Posición inferior a 0 para que cubra toda la ventana del navegador */
+  background-size: cover; /* Ajustar al tamaño del contenedor y cortar si es necesario */
+  background-repeat: no-repeat; /* Evitar la repetición de la imagen de fondo */
+  background-position: center;
+}
+
+.boton {
+  padding: 12px 24px;
+  background-color: #f44336;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Press Start 2P", cursive;
+  text-transform: uppercase; /* Convertir el texto a mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  position: absolute; /* Establecer la posición como absoluta */
+  top: 130px; /* Mover el botón 50px hacia arriba */
+  right: 330px; /* Mover el botón 50px hacia la derecha */
+}
+
+.boton:hover {
+  background-color: #d32f2f;
+}
+
+.boton:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.boton:hover:before {
+  opacity: 1;
+}
