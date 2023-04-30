@@ -5,6 +5,7 @@ const Filter = ({
   handleFilterType,
   handleFilterOrigin,
   order,
+  handleFilterDefense,
   orderByAttack,
 }) => {
   return (
@@ -50,6 +51,13 @@ const Filter = ({
             <option value="Api">Api</option>
           </select>
         </div>
+      </div>
+      <div>
+        <span>Order by defense</span>
+        <select onChange={handleFilterDefense}>
+          <option value="ascendente">Ascendente</option>
+          <option value="descendente">Descendente</option>
+        </select>
       </div>
     </div>
   );

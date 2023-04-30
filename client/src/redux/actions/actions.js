@@ -8,36 +8,49 @@ export const CREATE_POKEMON = "CREATE_POKEMON";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const ORDER = "ORDER";
 export const ORDER_BY_ATTACK = "ORDER_BY_ATTACK";
+export const ORDER_BY_DEFENSE = "ORDER_BY_DEFENSE";
 export const SET_FILTER_TYPE = "SET_FILTER_TYPE";
 export const SET_FILTER_ORIGIN = "SET_FILTER_ORIGIN";
 export function getPokemons() {
-  return async function (dispatch) {
-    const response = await axios.get("http://localhost:3001/pokemons");
-    return dispatch({
-      type: GET_POKEMONS,
-      payload: response.data,
-    });
-  };
+  try {
+    return async function (dispatch) {
+      const response = await axios.get("http://localhost:3001/pokemons");
+      return dispatch({
+        type: GET_POKEMONS,
+        payload: response.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 export function getByName(name) {
   return async function (dispatch) {
-    const response = await axios.get(
-      `http://localhost:3001/pokemons/?name=${name}`
-    );
-    return dispatch({
-      type: GET_BY_NAME,
-      payload: response.data,
-    });
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/pokemons/?name=${name}`
+      );
+      return dispatch({
+        type: GET_BY_NAME,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 export function getById(id) {
-  return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
-    return dispatch({
-      type: GET_BY_ID,
-      payload: response.data,
-    });
-  };
+  try {
+    return async function (dispatch) {
+      const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
+      return dispatch({
+        type: GET_BY_ID,
+        payload: response.data,
+      });
+    };
+  } catch (error) {
+    console.error(error);
+  }
 }
 export const setFilterType = (type) => {
   return {
@@ -54,25 +67,33 @@ export const setFilterOrigin = (origin) => {
 };
 
 export function createPokemon(newPokemon) {
-  return async function (dispatch) {
-    const response = await axios.post(
-      `http://localhost:3001/pokemons`,
-      newPokemon
-    );
-    return dispatch({
-      type: CREATE_POKEMON,
-      payload: response.data,
-    });
-  };
+  try {
+    return async function (dispatch) {
+      const response = await axios.post(
+        `http://localhost:3001/pokemons`,
+        newPokemon
+      );
+      return dispatch({
+        type: CREATE_POKEMON,
+        payload: response.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 export function getTypes() {
-  return async function (dispatch) {
-    const response = await axios.get("http://localhost:3001/types");
-    return dispatch({
-      type: GET_TYPES,
-      payload: response.data,
-    });
-  };
+  try {
+    return async function (dispatch) {
+      const response = await axios.get("http://localhost:3001/types");
+      return dispatch({
+        type: GET_TYPES,
+        payload: response.data,
+      });
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export const clearDetail = () => {
@@ -85,4 +106,11 @@ export const orderPokemons = (id) => {
 };
 export const orderPokemonsByAttack = (id) => {
   return { type: ORDER_BY_ATTACK, payload: id };
+};
+
+export const orderPokemonsByDefense = (id) => {
+  return {
+    type: ORDER_BY_DEFENSE,
+    payload: id,
+  };
 };

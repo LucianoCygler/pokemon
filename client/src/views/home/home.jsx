@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -8,6 +9,7 @@ import {
   getTypes,
   orderPokemons,
   orderPokemonsByAttack,
+  orderPokemonsByDefense,
   setFilterOrigin,
   setFilterType,
 } from "../../redux/actions/actions";
@@ -86,11 +88,13 @@ const Home = () => {
     dispatch(setFilterOrigin(e.target.value));
   };
 
+  const handleFilterDefense = (e) => {
+    dispatch(orderPokemonsByDefense(e.target.value));
+  };
   useEffect(() => {
     dispatch(getPokemons());
     dispatch(getTypes());
   }, [dispatch]);
-
   useEffect(() => {
     const totalPages = Math.ceil(allPokemons.length / pokemonsPerPage);
     if (currentPage > totalPages) {
@@ -107,12 +111,14 @@ const Home = () => {
         handleFilterOrigin={handleFilterOrigin}
         orderByAttack={orderByAttack}
         handleFilterType={handleFilterType}
+        handleFilterDefense={handleFilterDefense}
       />
       <Paginado
         className={styles.paginado}
         pokemonsPerPage={pokemonsPerPage}
         allPokemons={allPokemons.length}
         paginated={paginated}
+        currentPage={currentPage}
       />
 
       {showSearchResults ? (

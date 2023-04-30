@@ -1,13 +1,14 @@
 import styles from "./detail.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { clearDetail, getById } from "../../redux/actions/actions";
 const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const pokemon = useSelector((state) => state.detail);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getById(id));
@@ -15,6 +16,11 @@ const Detail = () => {
       dispatch(clearDetail());
     };
   }, [dispatch]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.contenedor}>
       <div className={styles.imagen}>
@@ -51,9 +57,7 @@ const Detail = () => {
         )}
       </div>
 
-      <Link to="/home">
-        <button>Home</button>
-      </Link>
+      <button onClick={handleBack}>Back</button>
     </div>
   );
 };

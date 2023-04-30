@@ -14,7 +14,7 @@ const Card = ({ pokemon }) => {
         <h2>{name}</h2>
         <h3>Types:</h3>
 
-        {types.map((type) => (
+        {types?.map((type) => (
           <p>{type}</p>
         ))}
       </div>

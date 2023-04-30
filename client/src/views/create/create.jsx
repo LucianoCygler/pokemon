@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { createPokemon } from "../../redux/actions/actions";
 import styles from "./create.module.css";
 import { Link } from "react-router-dom";
+import { validate } from "./validate";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -55,97 +56,16 @@ const Create = () => {
     type2: "",
   });
 
-  const validate = (input) => {
-    let newErrors = { ...errors };
-    const {
-      name,
-      image,
-      hp,
-      attack,
-      defense,
-      speed,
-      height,
-      weight,
-      type1,
-      type2,
-    } = input;
-
-    if (!name) newErrors.name = "Name cannot be empty";
-    else if (!isNaN(name)) newErrors.name = "Name must be string";
-    else if (name.length < 3)
-      newErrors.name = "Name must have at least 3 characters";
-    else newErrors.name = "";
-
-    if (!image) newErrors.image = "Image cannot be empty";
-    else if (typeof image !== "string") newErrors.name = "Name must be string";
-    else if (
-      !/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(
-        image
-      )
-    ) {
-      newErrors.image = "Must be a link to an image";
-    } else newErrors.image = "";
-
-    if (!hp) newErrors.hp = "HP cannot be empty";
-    else if (!Number.isInteger(Number(hp)))
-      newErrors.hp = "HP must be an integer";
-    else if (hp < 0 || hp > 255) newErrors.hp = "HP must be 255 or less";
-    else newErrors.hp = "";
-
-    if (!attack) newErrors.attack = "Attack cannot be empty";
-    else if (!Number.isInteger(Number(attack)))
-      newErrors.attack = "Attack must be an integer";
-    else if (attack < 0 || attack > 255)
-      newErrors.attack = "Attack must be 255 or less";
-    else newErrors.attack = "";
-
-    if (!defense) newErrors.defense = "Defense cannot be empty";
-    else if (!Number.isInteger(Number(defense)))
-      newErrors.defense = "Defense must be an integer";
-    else if (defense < 0 || defense > 255)
-      newErrors.defense = "Defense must be 255 or less";
-    else newErrors.defense = "";
-
-    if (speed) {
-      if (!Number.isInteger(Number(speed)))
-        newErrors.speed = "Speed must be an integer";
-      else if (speed < 0 || speed > 255)
-        newErrors.speed = "Speed must be 255 or less";
-      else newErrors.speed = "";
-    }
-
-    if (height) {
-      if (!Number.isInteger(Number(height)))
-        newErrors.height = "Height must be an integer";
-      else if (height < 0 || height > 14)
-        newErrors.height = "Height must be 14 or less";
-      else newErrors.height = "";
-    }
-
-    if (weight) {
-      if (!Number.isInteger(Number(weight)))
-        newErrors.weight = "Weight must be an integer";
-      else if (weight < 0 || weight > 1000)
-        newErrors.weight = "Weight must be 1000 or less";
-      else newErrors.weight = "";
-    }
-
-    if (!type1) newErrors.type1 = "Type 1 cannot be empty";
-    else newErrors.type1 = "";
-
-    if (type2) {
-      if (type2 === type1) newErrors.type2 = "Types must be different";
-      else newErrors.type2 = "";
-    }
-    setErrors(newErrors);
-  };
-
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    validate({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+    validate(
+      {
+        ...input,
+        [e.target.name]: e.target.value,
+      },
+      errors,
+      setErrors
+    );
   };
 
   const handleSubmit = (e) => {
@@ -169,7 +89,7 @@ const Create = () => {
         height: Math.floor(input.height),
         weight: Math.floor(input.weight),
         image: input.image.trim(),
-        types: [input.type1, input.type2],
+        types: [input.type1, input.type2].filter(Boolean),
       };
 
       dispatch(createPokemon(newPokemon));
@@ -186,6 +106,7 @@ const Create = () => {
         type1: "",
         type2: "",
       });
+      alert("Pokemon creado con exito");
     } else {
       alert("Por favor, complete los campos del formulario");
     }
@@ -196,71 +117,71 @@ const Create = () => {
         <h1>Create your own Pokemon!</h1>
       </div>
       <form>
-        <div>
+        <div className={styles.caja}>
           <label>Name: </label>
           <input name="name" value={input.name} onChange={handleChange}></input>
-          <span>{errors.name}</span>
+          <small>{errors.name}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Image: </label>
           <input
             name="image"
             value={input.image}
             onChange={handleChange}
           ></input>
-          <span>{errors.image}</span>
+          <small>{errors.image}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>HP: </label>
           <input name="hp" value={input.hp} onChange={handleChange}></input>
-          <span>{errors.hp}</span>
+          <small>{errors.hp}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Attack: </label>
           <input
             name="attack"
             value={input.attack}
             onChange={handleChange}
           ></input>
-          <span>{errors.attack}</span>
+          <small>{errors.attack}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Defense: </label>
           <input
             name="defense"
             value={input.defense}
             onChange={handleChange}
           ></input>
-          <span>{errors.defense}</span>
+          <small>{errors.defense}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Speed:</label>
           <input
             name="speed"
             value={input.speed}
             onChange={handleChange}
           ></input>
-          <span>{errors.speed}</span>
+          <small>{errors.speed}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Height: </label>
           <input
             name="height"
             value={input.height}
             onChange={handleChange}
           ></input>
-          <span>{errors.height}</span>
+          <small>{errors.height}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Weight: </label>
           <input
             name="weight"
             value={input.weight}
             onChange={handleChange}
           ></input>
-          <span>{errors.weight}</span>
+          <small>{errors.weight}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Type 1: </label>
           <select name="type1" value={input.type1} onChange={handleChange}>
             <option></option>
@@ -269,9 +190,9 @@ const Create = () => {
               <option>{type}</option>
             ))}
           </select>
-          <span>{errors.type1}</span>
+          <small>{errors.type1}</small>
         </div>
-        <div>
+        <div className={styles.caja}>
           <label>Type 2: </label>
           <select name="type2" value={input.type2} onChange={handleChange}>
             <option></option>
@@ -279,7 +200,7 @@ const Create = () => {
               <option>{type}</option>
             ))}
           </select>
-          <span>{errors.type2}</span>
+          <small>{errors.type2}</small>
         </div>
 
         {errors.name ? null : (

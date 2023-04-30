@@ -20,3 +20,14 @@ select {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+
+.caja {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.caja small {
+  color: rgb(113, 5, 5);
+  margin: 0.5em;
+}
